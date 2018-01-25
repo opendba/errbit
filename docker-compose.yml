@@ -15,6 +15,7 @@ services:
       - MONGO_URL=mongodb://mongo:27017/errbit
       - VIRTUAL_HOST=ex.opendba.lv
       - VIRTUAL_PORT=8080
+      - ERRBIT_HOST=ex.opendba.lv
   mongo:
     image: mongo:3.4
     volumes:
