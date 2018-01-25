@@ -1,0 +1,1 @@
+gem 'errbit_jira_plugin', :git => 'https://bb.opendba.lv/scm/odba-infra/errbit_jira_plugin.git'
