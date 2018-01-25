@@ -26,11 +26,14 @@ RUN gem update --system 2.7.4 \
     libxml2-dev \
     libxslt-dev \
     nodejs \
-    tzdata
+    tzdata \
+    git
 
 EXPOSE 8080
 
-COPY ["Gemfile", "Gemfile.lock", "/app/"]
+COPY ["Gemfile", "Gemfile.lock", "UserGemfile", "/app/"]
+
+COPY netrc /root/.netrc
 
 RUN apk add --no-cache --virtual build-dependencies \
       build-base \

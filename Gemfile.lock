@@ -1,3 +1,11 @@
+GIT
+  remote: https://bb.opendba.lv/scm/odba-infra/errbit_jira_plugin.git
+  revision: ae44ecc2126e1d773a6f749d645d8c390757cf1c
+  specs:
+    errbit_jira_plugin (0.3.0)
+      errbit_plugin
+      jira-ruby
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -158,6 +166,10 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.8.6)
+    jira-ruby (1.5.0)
+      activesupport
+      multipart-post
+      oauth (~> 0.5, >= 0.5.0)
     jquery-rails (2.1.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -213,6 +225,7 @@ GEM
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
     nokogiri (1.8.1-java)
+    oauth (0.5.4)
     oauth2 (1.0.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -451,6 +464,7 @@ DEPENDENCIES
   draper
   email_spec
   errbit_github_plugin
+  errbit_jira_plugin!
   errbit_plugin
   fabrication
   flowdock
