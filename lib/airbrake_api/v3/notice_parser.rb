@@ -1,3 +1,5 @@
+require 'date'
+
 module AirbrakeApi
   module V3
     class NoticeParser
@@ -18,7 +20,8 @@ module AirbrakeApi
           server_environment: server_environment,
           api_key:            params['key'].present? ? params['key'] : params['project_id'],
           notifier:           context['notifier'] || params['notifier'],
-          user_attributes:    user_attributes
+          user_attributes:    user_attributes,
+          created_at:         context['created'].present? ? Time.at(context['created']) : Time.now
         }
       end
 
