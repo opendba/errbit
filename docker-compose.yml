@@ -1,14 +1,35 @@
+version: '3'
+
 errbit:
-  image: errbit/errbit:latest
-  ports:
-    - "8080:8080"
+  image: opendba/errbit:latest
+  build: .
   links:
     - mongo
+  networks:
+    - errbitnet
+    - frontend
   environment:
     - PORT=8080
     - RACK_ENV=production
     - MONGO_URL=mongodb://mongo:27017/errbit
+    - VIRTUAL_HOST=ex.opendba.lv
+    - VIRTUAL_PORT=8080
 mongo:
   image: mongo:3.4
-  ports:
-    - "27017"
+  volumes:
+      - mongo_db:/data/db
+  networks:
+    - errbitnet
+
+volumes:
+    mongo_db:
+        driver: local-persist
+        driver_opts:
+            mountpoint: /opt/docker-volumes/errbit/data
+
+networks:
+  errbitnet:
+    driver: bridge
+  frontend:
+    external:
+      name: local_frontend
