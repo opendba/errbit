@@ -78,7 +78,11 @@ private
 
   def link_to_bitbucket(app, text = nil)
     return unless app.bitbucket_repo?
-    href = format("%s#%s-%s", app.bitbucket_url_to_file(decorated_path + file_name), file_name, number)
+    if app.bitbucket_self_hosted? then
+      href = format("%s#%s", app.bitbucket_url_to_file(decorated_path + file_name), number)
+    else
+      href = format("%s#%s-%s", app.bitbucket_url_to_file(decorated_path + file_name), file_name, number)
+    end
     h.link_to(text || file_name, href, target: '_blank')
   end
 

@@ -127,11 +127,22 @@ class App
   end
 
   def bitbucket_url
-    "https://bitbucket.org/#{bitbucket_repo}" if bitbucket_repo?
+    if bitbucket_repo? then
+      # is it self hosted or cloud instance
+      if bitbucket_self_hosted? then
+        bitbucket_repo
+      else
+        "https://bitbucket.org/#{bitbucket_repo}"
+      end
+    end
+  end
+
+  def bitbucket_self_hosted?
+    bitbucket_repo? && bitbucket_repo.start_with?('http')
   end
 
   def bitbucket_url_to_file(file)
-    "#{bitbucket_url}/src/#{repo_branch}/#{file}"
+    bitbucket_self_hosted? ? "#{bitbucket_url}/browse/#{file}?at=refs/heads/#{repo_branch}" : "#{bitbucket_url}/src/#{repo_branch}/#{file}"
   end
 
   def issue_tracker_configured?
