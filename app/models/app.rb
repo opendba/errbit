@@ -230,7 +230,7 @@ protected
   def normalize_github_repo
     return if github_repo.blank?
     github_host = URI.parse(Errbit::Config.github_url).host
-    github_host = Regexp.escape(github_host)
+    github_host = ::Regexp.escape(github_host)
     github_repo.strip!
     github_repo.sub!(%r{(git@|https?://)#{github_host}(/|:)}, '')
     github_repo.sub!(/\.git$/, '')

@@ -22,6 +22,7 @@ class ErrorReport
   attr_reader :notice
   attr_reader :notifier
   attr_reader :problem
+  attr_reader :problem_was_resolved
   attr_reader :request
   attr_reader :server_environment
   attr_reader :user_attributes
@@ -56,6 +57,7 @@ class ErrorReport
     notice.err_id = error.id
     notice.save!
 
+    retrieve_problem_was_resolved
     cache_attributes_on_problem
     email_notification
     services_notification
@@ -77,13 +79,18 @@ class ErrorReport
     )
   end
 
+  def retrieve_problem_was_resolved
+    @problem_was_resolved = Problem.where('_id' => @error.problem_id, resolved: true).exists?
+  end
+
   # Update problem cache with information about this notice
   def cache_attributes_on_problem
     @problem = Problem.cache_notice(@error.problem_id, @notice)
   end
 
   def should_email?
-    app.email_at_notices.include?(0) ||
+    problem_was_resolved ||
+      app.email_at_notices.include?(0) ||
       app.email_at_notices.include?(@problem.notices_count)
   end
 
@@ -96,7 +103,8 @@ class ErrorReport
   end
 
   def should_notify?
-    app.notification_service.notify_at_notices.include?(0) ||
+    problem_was_resolved ||
+      app.notification_service.notify_at_notices.include?(0) ||
       app.notification_service.notify_at_notices.include?(@problem.notices_count)
   end
 
