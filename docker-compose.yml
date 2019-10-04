@@ -18,6 +18,9 @@ services:
       - VIRTUAL_HOST=ex.opendba.lv
       - VIRTUAL_PORT=8080
       - ERRBIT_HOST=ex.opendba.lv
+      - LETSENCRYPT_HOST=ex.opendba.lv
+      - LETSENCRYPT_EMAIL=info@opendba.lv
+
   mongo:
     image: mongo:3.4
     volumes:
