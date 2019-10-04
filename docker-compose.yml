@@ -4,6 +4,8 @@ services:
   errbit:
     image: opendba/errbit:latest
     build: .
+    ports:
+      8083:8080
     links:
       - mongo
     networks:
