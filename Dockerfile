@@ -4,7 +4,7 @@ LABEL maintainer="David Papp <david@ghostmonitor.com>"
 WORKDIR /app
 # throw errors if Gemfile has been modified since Gemfile.lock
 RUN echo "gem: --no-document" >> /etc/gemrc \
-  && bundle config --global frozen 1 \
+  && bundle config --global frozen 0 \
   && bundle config --global clean true \
   && bundle config --global disable_shared_gems false \
   && gem update --system 2.7.4 \
